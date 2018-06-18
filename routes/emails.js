@@ -4,7 +4,7 @@ var sgMail = require('@sendgrid/mail');
 var validator = require('validator');
 
 const pug = require('pug');
-const key = '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';
+
 
 
 // Send email
@@ -39,7 +39,8 @@ router.post('/',function (req,res,next) {
 
 // Send email for customer
 function sendMailToCustomer(data){
-    sgMail.setApiKey(key);
+    let sendgridkey = process.env.SENDGRID_KEY;
+    sgMail.setApiKey(sendgridkey);
     const compiledFunction = pug.compileFile('email-meeting.pug');
     const msg = {
         to: data.receiver,
