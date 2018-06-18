@@ -30,7 +30,8 @@ router.post('/',function (req,res,next) {
             phone:req.body.phone,
             message:req.body.message
         };
-        sendMailToCustomer(data)
+        sendMailToCustomer(data);
+        sendMailToOwner(data);
         res.json({ message: 'email send!' });
     }
 
@@ -48,6 +49,22 @@ function sendMailToCustomer(data){
         subject: 'Cita Adagio',
         text: 'Nos pondremos en contacto lo mas pronto posible',
         html: compiledFunction({ name: data.name   })
+    }
+    sgMail.send(msg);
+}
+
+
+// Send email for customer
+function sendMailToOwner(data){
+    let sendgridkey = process.env.SENDGRID_KEY;
+    sgMail.setApiKey(sendgridkey);
+    const compiledFunction = pug.compileFile('email-information.pug');
+    const msg = {
+        to: data.sender,
+        from: data.sender,
+        subject: 'Cita Adagio',
+        text: 'Nos pondremos en contacto lo mas pronto posible',
+        html: compiledFunction({ name: data.name ,phone:data.phone,email: data.receiver,message:data.message  })
     }
     sgMail.send(msg);
 }

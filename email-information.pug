@@ -1,0 +1,35 @@
+doctype html
+html
+    head
+        title One | Email template!
+
+        //- import css/scss stylesheets
+        //- these file names will be replace by gulp with proper css file paths
+        link(rel="stylesheet", href="../../sass/basic.scss")
+        link(rel="stylesheet", href="../../sass/one/styles.scss")
+
+        //- embdedded css allowed, but not sass
+        style.
+            .red{
+                background-color: #E84C50;
+            }
+            .full-width{
+                width: 100%;
+            }
+    body
+        table.table(cellpadding="0", cellspacing="0")
+            tr
+                td.red
+                    h3(style="color: white;") Contactar
+            tr
+                td
+                    p Name: #{name}
+            tr
+                td
+                    p Phone: #{phone}
+            tr
+                td
+                    p Mail: #{email}
+            tr
+                td
+                    p Message: #{message}
