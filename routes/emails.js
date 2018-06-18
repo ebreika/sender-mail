@@ -37,6 +37,7 @@ router.post('/',function (req,res,next) {
 })
 
 
+// Send email for customer
 function sendMailToCustomer(data){
     sgMail.setApiKey(key);
     const compiledFunction = pug.compileFile('email-meeting.pug');
