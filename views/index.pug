@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  // register form
+  form(method='POST' action='/contact')
+    div.form-group
+      label(for='name') Name:
+      input#name.form-control(type='text', placeholder='first and last' name='name')
+    div.form-group
+      label(for='email') Email:
+      input#email.form-control(type='email', placeholder='name@email.com' name='email')
+    div.form-group
+      label(for='message') Description:
+      input#message.form-control(type='text',  name='message')
+    div.form-group
+      label(for='phone') Phone:
+      input#phone.form-control(type='tel',  name='phone')
+    button.btn.btn-primary(type='submit') Sign up
