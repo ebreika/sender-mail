@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var sgMail = require('@sendgrid/mail');
 var validator = require('validator');
+var path = require('path');
+var fs = require("fs");
 
 const pug = require('pug');
 
@@ -35,6 +37,8 @@ router.post('/',function (req,res,next) {
         res.json({ message: 'email send!' });
     }
 
+
+
 })
 
 
@@ -42,13 +46,13 @@ router.post('/',function (req,res,next) {
 function sendMailToCustomer(data){
     let sendgridkey = process.env.SENDGRID_KEY;
     sgMail.setApiKey(sendgridkey);
-    const compiledFunction = pug.compileFile('email-meeting.pug');
+    var file=fs.readFileSync(path.join(__dirname, '../public/template.html'), "utf8");
     const msg = {
         to: data.receiver,
         from: data.sender,
         subject: 'Cita Adagio',
         text: 'Nos pondremos en contacto lo mas pronto posible',
-        html: compiledFunction({ name: data.name   })
+        html: file
     }
     sgMail.send(msg);
 }
@@ -58,7 +62,7 @@ function sendMailToCustomer(data){
 function sendMailToOwner(data){
     let sendgridkey = process.env.SENDGRID_KEY;
     sgMail.setApiKey(sendgridkey);
-    const compiledFunction = pug.compileFile('email-information.pug');
+    const compiledFunction = pug.compileFile(path.join(__dirname, '../templates/email-information.pug'));
     const msg = {
         to: data.sender,
         from: data.sender,
