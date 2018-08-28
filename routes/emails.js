@@ -26,7 +26,7 @@ router.post('/',function (req,res,next) {
         return;
     } else {
         var data = {
-            sender:'contact@ebreika.com',
+            sender:process.env.MAIL_SENDER,
             receiver:req.body.email,
             name:req.body.name,
             phone:req.body.phone,
